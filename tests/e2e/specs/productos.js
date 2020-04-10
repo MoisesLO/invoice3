@@ -7,5 +7,6 @@ describe('Productos', function () {
         cy.get("button[type='submit']").click()
         cy.get('[name="productos"]').click();
         cy.get('[name="producto"]').trigger('mousemove').click();
+        cy.get('button').contains('Agregar Producto').click()
     });
 });
