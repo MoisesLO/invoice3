@@ -12,11 +12,11 @@
           <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown" v-if="user.loggedIn == 'si'">
-          <a class="nav-link dropdown-toggle" href="#" id="productos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" name="productos" href="#" id="productos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Productos
           </a>
           <div class="dropdown-menu" aria-labelledby="productos">
-            <a class="dropdown-item" href="#">Productos</a>
+            <router-link to="/productos" name="producto" class="dropdown-item">Productos</router-link>
             <a class="dropdown-item" href="#">Categorias</a>
           </div>
         </li>

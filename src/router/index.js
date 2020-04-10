@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Documentos from '../views/Documentos'
+import Productos from '../views/productos/Productos'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/documentos',
     name: 'Documentos',
     component: Documentos
+  },
+  {
+    path: '/productos',
+    name: 'Productos',
+    component: Productos
   },
   {
     path: '/about',

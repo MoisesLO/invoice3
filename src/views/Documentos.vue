@@ -68,7 +68,7 @@
       getDocumentos() {
         axios.get('http://www.filltext.com/?rows=25&tipo=["Factura","Boleta"]&numero=["F001","B001"]~-~{numberLength|5}&documento={numberLength|11}&razon={firstName}~{lastName}&sunat=["Enviado","No"]&total={randomDecimal|4000}').then(res => {
           this.documentos = res.data;
-          console.log(typeof res.data[0].total)
+          // console.log(typeof res.data[0].total)
         })
       }
     },
