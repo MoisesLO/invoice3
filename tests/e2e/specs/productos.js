@@ -6,7 +6,8 @@ describe('Productos', function () {
         cy.get("input[type='password']").type('moiseslinar3s')
         cy.get("button[type='submit']").click()
         cy.get('[name="productos"]').click();
-        cy.get('[name="producto"]').trigger('mousemove').click();
+        cy.get('[name="producto"]').trigger('mousemove').click()
+        cy.wait(2000)
         cy.get('button').contains('Agregar Producto').click()
         cy.get('[id="codigo"]').type('RTYUHBG55')
         cy.get('[id="producto"]').type('Arroz Costeno Graneadito 5 kg calidad 1')
