@@ -1,13 +1,12 @@
 describe('Productos', function () {
     it('should List', function () {
-        cy.viewport(1057, 460)
+        cy.viewport(1200, 650)
         cy.visit('/login')
         cy.get("input[type='email']").type('elnaufrago2009@gmail.com')
         cy.get("input[type='password']").type('moiseslinar3s')
         cy.get("button[type='submit']").click()
-        cy.get('[name="productos"]').click();
+        cy.get('[name="productos"]').click()
         cy.get('[name="producto"]').trigger('mousemove').click()
-        cy.wait(2000)
         cy.get('button').contains('Agregar Producto').click()
         cy.get('[id="codigo"]').type('RTYUHBG55')
         cy.get('[id="producto"]').type('Arroz Costeno Graneadito 5 kg calidad 1')
@@ -18,5 +17,14 @@ describe('Productos', function () {
         cy.get('[id="stock"]').type('3000')
         cy.get('[id="unidad"]').select('Kilogramos')
         cy.get('button').contains('Crear Producto').click()
+
+        // Editar Producto
+        cy.get('button').contains('Editar').first().click()
+        cy.wait(500)
+        cy.get('button').contains('Editar Producto').click()
+
+        // Eliminar Producto
+        cy.get('button').contains('Editar').first().click()
+        cy.get('button').contains('Eliminar Producto')
     });
 });

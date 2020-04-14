@@ -5,7 +5,7 @@
     <h4>Productos</h4>
     <div class="d-flex">
       <div class="mr-auto">
-        <button class="btn btn-light" data-toggle="modal" data-target="#exampleModal">Agregar Producto</button>
+        <button @click="OpenModal('nuevo')" class="btn btn-light">Agregar Producto</button>
       </div>
       <div>
         <div class="form-row">
@@ -19,7 +19,8 @@
       </div>
     </div>
 
-    <vue-content-loading v-if="isLoadProductos" :width="100" :height="100" class="mt-4">
+    <!-- Precarga de la tabla -->
+    <!--<vue-content-loading v-if="isLoadProductos" :width="100" :height="100" class="mt-4">
       <rect x="0" y="0" rx="1" ry="100" width="100" height="3" />
 
       <rect x="0" y="5" rx="1" ry="20" width="22" height="3" />
@@ -69,12 +70,13 @@
 
 
 
-    </vue-content-loading>
+    </vue-content-loading>-->
 
     <!-- Tabla -->
     <div class="d-flex justify-content-center row mt-3">
       <div class="col-12">
-        <table v-if="!isLoadProductos" class="table table-striped">
+        <!--<table v-if="!isLoadProductos" class="table table-striped">-->
+        <table class="table table-striped">
           <tbody>
           <tr>
             <th>#</th>
@@ -95,7 +97,7 @@
             <td>{{producto.igv.toFixed(2)}}</td>
             <!--<td>{{producto.total.toFixed(2)}}</td>-->
             <td>
-              <button class="btn btn-secondary btn-sm">Editar</button>
+              <button @click="OpenModal('edit')" class="btn btn-secondary btn-sm">Editar</button>
             </td>
           </tr>
         </table>
@@ -107,7 +109,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+            <h5 class="modal-title" v-if="option=='nuevo'">Nuevo Producto</h5>
+            <h5 class="modal-title" v-if="option=='edit'">Editar Producto</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -161,9 +164,9 @@
                 <label for="tipo_igv">Tipo de Igv</label>
                 <select v-model="producto.tipo_igv" class="custom-select" id="tipo_igv">
                   <option selected>Seleccione</option>
-                  <option value="1">Operacion Onerosa</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option>Operacion Onerosa</option>
+                  <option>Two</option>
+                  <option>Three</option>
                 </select>
                 <small class="form-text text-muted">Ejm. Operacion fiable</small>
               </div>
@@ -178,9 +181,9 @@
                 <label for="unidad">UND</label>
                 <select v-model="producto.unidad" class="custom-select" id="unidad">
                   <option selected>Seleccione</option>
-                  <option value="1">Kilogramos</option>
-                  <option value="2">Gramos</option>
-                  <option value="3">Litros</option>
+                  <option>Kilogramos</option>
+                  <option>Gramos</option>
+                  <option>Litros</option>
                 </select>
                 <small class="form-text text-muted">Ejm. Kilogramos</small>
               </div>
@@ -189,10 +192,19 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" @click="SendProducto" :disabled="isLoading" class="btn btn-primary">
-              <span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+
+            <!-- Button New -->
+            <button type="button" v-if="option == 'nuevo'" @click="SendProducto" :disabled="isLoading" class="btn btn-primary">
+              <!--<span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
               Crear Producto
             </button>
+
+            <!-- Button Edit -->
+            <button type="button" v-if="option=='edit'" @click="EditProducto" class="btn btn-primary">
+              <!--<span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
+              Editar Producto
+            </button>
+
           </div>
         </div>
       </div>
@@ -213,6 +225,7 @@
       return {
         isLoading: false,
         isLoadProductos: false,
+        option: '',
         productos: {},
         producto: {
           codigo: '',
@@ -227,21 +240,63 @@
       }
     },
     methods: {
+      EditProducto(){
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok').then(res => {
+          if (res.data[0].estado == 'ok'){
+            $('#exampleModal').modal('hide');
+            this.getProductos();
+          }
+        });
+      },
+      OpenModal(option){
+
+        if (option == 'nuevo'){
+          this.option = 'nuevo';
+          this.producto.codigo = '';
+          this.producto.producto = '';
+          this.producto.precio_sin_igv = '';
+          this.producto.precio_con_igv = '';
+          this.producto.igv = '';
+          this.producto.tipo_igv = '';
+          this.producto.stock = '';
+          this.producto.unidad = '';
+          $('#exampleModal').modal('show');
+        }else if (option == 'edit'){
+
+          // get Producto
+          axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=["01-04-2020","25-07-2020","12-09-2020","24-12-2020"]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}&stock={number|4000}').then(res => {
+            //  Productos Vacio
+            this.producto.codigo = res.data[0].codigo;
+            this.producto.producto = res.data[0].producto;
+            this.producto.precio_sin_igv = res.data[0].precio.toFixed(2);
+            this.producto.precio_con_igv = res.data[0].precio.toFixed(2);
+            this.producto.igv = res.data[0].igv.toFixed(2);
+            this.producto.tipo_igv = 'Operacion Onerosa';
+            this.producto.stock = res.data[0].stock;
+            this.producto.unidad = 'Kilogramos';
+            $('#exampleModal').modal('show');
+            this.option = option;
+
+          })
+
+        }
+
+      },
       getProductos(){
-        this.isLoadProductos = true;
-        axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=["01-04-2020","25-07-2020","12-09-2020","24-12-2020"]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}&delay=2').then(res => {
+        // this.isLoadProductos = true;
+        axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=["01-04-2020","25-07-2020","12-09-2020","24-12-2020"]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}').then(res => {
           this.productos = res.data;
-          this.isLoadProductos = false;
+          // this.isLoadProductos = false;
         })
       },
       SendProducto(){
         // Activa loading
-        this.isLoading = true;
-        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok&delay=2').then(res => {
+        // this.isLoading = true;
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok').then(res => {
           if (res.data[0].estado == 'ok'){
             $('#exampleModal').modal('hide');
             // Desactiva Loading
-            this.isLoading = false;
+            // this.isLoading = false;
           }
         })
       }
