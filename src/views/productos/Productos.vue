@@ -199,6 +199,11 @@
               Crear Producto
             </button>
 
+            <!-- Eliminar Producto -->
+            <button type="button" v-if="option == 'edit'" @click="DeleteProducto" class="btn btn-danger">              
+              Eliminar Producto
+            </button>
+
             <!-- Button Edit -->
             <button type="button" v-if="option=='edit'" @click="EditProducto" class="btn btn-primary">
               <!--<span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
@@ -240,6 +245,14 @@
       }
     },
     methods: {
+      DeleteProducto(){        
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok',{producto: this.producto}).then(res => {
+          if (res.data[0].estado == 'ok'){
+            $('#exampleModal').modal('hide');
+            this.getProductos();
+          }
+        })
+      },
       EditProducto(){
         axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok').then(res => {
           if (res.data[0].estado == 'ok'){

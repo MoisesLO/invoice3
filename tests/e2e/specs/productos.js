@@ -1,6 +1,6 @@
 describe('Productos', function () {
     it('should List', function () {
-        cy.viewport(1200, 650)
+        cy.viewport(1200, 750)
         cy.visit('/login')
         cy.get("input[type='email']").type('elnaufrago2009@gmail.com')
         cy.get("input[type='password']").type('moiseslinar3s')
@@ -25,6 +25,7 @@ describe('Productos', function () {
 
         // Eliminar Producto
         cy.get('button').contains('Editar').first().click()
-        cy.get('button').contains('Eliminar Producto')
+        cy.wait(500)
+        cy.get('button').contains('Eliminar Producto').click()
     });
 });
