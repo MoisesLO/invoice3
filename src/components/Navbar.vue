@@ -17,7 +17,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="productos">
             <router-link to="/productos" name="producto" class="dropdown-item">Productos</router-link>
-            <a class="dropdown-item" href="#">Categorias</a>
+            <router-link to="/categorias" class="dropdown-item">Categorias</router-link>
+            <!-- <a class="dropdown-item" href="#">Categorias</a> -->
           </div>
         </li>
         <li class="nav-item">
@@ -26,7 +27,7 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" v-if="user.loggedIn != 'si'" href="#">Login</a>
+          <router-link v-if="user.loggedIn != 'si'" to="/login" class="nav-link">Login</router-link>          
         </li>
         <li class="nav-item">
           <a class="nav-link" v-if="user.loggedIn != 'si'" href="#">Registro</a>

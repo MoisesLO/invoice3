@@ -1,6 +1,6 @@
 describe('Productos', function () {
     it('should List', function () {
-        cy.viewport(1200, 750)
+        cy.viewport(1200, 560)
         cy.visit('/login')
         cy.get("input[type='email']").type('elnaufrago2009@gmail.com')
         cy.get("input[type='password']").type('moiseslinar3s')

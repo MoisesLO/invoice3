@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Documentos from '../views/Documentos'
 import Productos from '../views/productos/Productos'
+import Categorias from '../views/productos/Categorias'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/productos',
     name: 'Productos',
     component: Productos
+  },
+  {
+    path: '/categorias',
+    name: 'Categorias',
+    component: Categorias
   },
   {
     path: '/about',
