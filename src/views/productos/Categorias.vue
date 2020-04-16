@@ -68,29 +68,44 @@
       return {
         option: '',
         categoria: {
+          id: '',
           nombre: ''
         },
         categorias: []
       };
     },
     methods: {
-      DeleteCategoria(){
-        $('#categoriaModal').modal('hide');
+      DeleteCategoria(categoria){
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok', {categoria: categoria}).then(res => {
+          if (res.data[0].estado == 'ok'){
+            $('#categoriaModal').modal('hide');
+            this.GetCategorias();
+          }
+        })
       },
-      EditCategoria(){
-        $('#categoriaModal').modal('hide');
-        this.GetCategorias();
+      EditCategoria(categoria){
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok', {categoria: categoria}).then(res => {
+          if (res.data[0].estado == 'ok'){
+            $('#categoriaModal').modal('hide');
+            this.GetCategorias();
+          }
+        })
       },
-      SaveCategoria(){
-        $('#categoriaModal').modal('hide');
-        this.GetCategorias();
+      SaveCategoria(categoria){
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok', {categoria: categoria}).then(res => {
+          if (res.data[0].estado == 'ok'){
+            $('#categoriaModal').modal('hide');
+            this.GetCategorias();
+          }
+        })
       },
       OpenCategoria(option){
         this.option = option;
         if (option == 'new'){
+          this.categoria.id == '';
           this.categoria.nombre = '';
         }else if (option == 'edit'){
-          axios.get('http://www.filltext.com/?rows=20&pretty=true&nombre={lorem}').then(res => {
+          axios.get('http://www.filltext.com/?rows=20&pretty=true&id={index}&nombre={lorem}').then(res => {
             this.categoria.nombre = res.data[0].nombre;
           })
         }
@@ -98,7 +113,7 @@
         // console.log(option)
       },
       GetCategorias() {
-        axios.get('http://www.filltext.com/?rows=20&pretty=true&nombre={lorem}').then(res=>{
+        axios.get('http://www.filltext.com/?rows=20&pretty=true&id={index}&nombre={lorem}').then(res=>{
           this.categorias = res.data;
         })
       }
