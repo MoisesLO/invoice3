@@ -2,16 +2,18 @@
   <div class="pt-4">
 
     <!-- Title -->
-    <h4>Productos</h4>
+    <h4 class="display-4">Productos</h4>
     <div class="d-flex">
       <div class="mr-auto">
-        <button @click="OpenModal('nuevo')" class="btn btn-light">Agregar Producto</button>
+        <button @click="OpenModal('nuevo')" class="btn btn-primary">Agregar Producto</button>
       </div>
       <div>
         <div class="form-row">
+          <!-- Button Buscar -->
           <div class="col-4">
-            <button class="btn btn-light form-control">Buscar</button>
+            <button class="btn btn-primary form-control">Buscar</button>
           </div>
+          <!-- Buscar -->
           <div class="col-8">
             <input type="text" class="form-control" placeholder="Nombre Producto">
           </div>
@@ -105,7 +107,8 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -133,10 +136,11 @@
             </div>
 
             <div class="form-row">
-              <!-- Precio Sin Igv -->
+              <!-- Precio Con Igv -->
               <div class="col form-group">
                 <label for="precio_sin_igv">Precio Sin Igv</label>
-                <input type="text" v-model="producto.precio_sin_igv" class="form-control" id="precio_sin_igv">
+                <input type="text" v-model="producto.precio_con_igv" class="form-control"
+                       id="precio_sin_igv">
                 <small class="form-text text-muted">Ejm. 30.45</small>
               </div>
               <!-- Igv -->
@@ -145,17 +149,15 @@
                 <input type="text" v-model="producto.igv" class="form-control" id="igv">
                 <small class="form-text text-muted">Ejm. 23.78</small>
               </div>
-              <!-- Precion con Igv -->
+              <!-- Categorias -->
               <div class="col form-group">
-                <label for="precio_con_igv">Precio Con Igv</label>
-                <input type="text" v-model="producto.precio_con_igv" class="form-control" id="precio_con_igv">
-                <small class="form-text text-muted">Ejm. 45.34</small>
+                <label for="unidad">Categoria</label>
+                <select v-model="producto.categoria_id" class="custom-select" id="categoria">
+                  <option selected>Seleccione</option>
+                  <option v-for="(categoria,index) in categorias" :value="index+1">{{categoria.nombre}}</option>
+                </select>
+                <small class="form-text text-muted">Ejm. Kilogramos</small>
               </div>
-              <!--<div class="col form-group">
-                <label for="total">Total</label>
-                <input type="text" class="form-control" id="total">
-                <small class="form-text text-muted">Ejm. 134.78</small>
-              </div>-->
             </div>
 
             <div class="form-row">
@@ -194,13 +196,14 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
             <!-- Button New -->
-            <button type="button" v-if="option == 'nuevo'" @click="SendProducto" :disabled="isLoading" class="btn btn-primary">
+            <button type="button" v-if="option == 'nuevo'" @click="SendProducto" :disabled="isLoading"
+                    class="btn btn-primary">
               <!--<span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>-->
               Crear Producto
             </button>
 
             <!-- Eliminar Producto -->
-            <button type="button" v-if="option == 'edit'" @click="DeleteProducto" class="btn btn-danger">              
+            <button type="button" v-if="option == 'edit'" @click="DeleteProducto" class="btn btn-danger">
               Eliminar Producto
             </button>
 
@@ -220,7 +223,8 @@
 <script>
   import axios from 'axios';
   import $ from 'jquery';
-  import { VclFacebook, VueContentLoading } from 'vue-content-loading';
+  import {VclFacebook, VueContentLoading} from 'vue-content-loading';
+
   export default {
     components: {
       VclFacebook,
@@ -230,6 +234,7 @@
       return {
         isLoading: false,
         isLoadProductos: false,
+        categorias: [],
         option: '',
         productos: {},
         producto: {
@@ -240,30 +245,36 @@
           igv: '',
           tipo_igv: '',
           stock: '',
-          unidad: ''
+          unidad: '',
+          categoria_id: null
         }
       }
     },
     methods: {
-      DeleteProducto(){        
-        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok',{producto: this.producto}).then(res => {
-          if (res.data[0].estado == 'ok'){
+      GetCategorias(){
+        axios.get('http://www.filltext.com/?rows=10&pretty=true&id={index}&nombre={business}').then(res => {
+          this.categorias = res.data;
+        })
+      },
+      DeleteProducto() {
+        axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok', {producto: this.producto}).then(res => {
+          if (res.data[0].estado == 'ok') {
             $('#exampleModal').modal('hide');
             this.getProductos();
           }
         })
       },
-      EditProducto(){
+      EditProducto() {
         axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok').then(res => {
-          if (res.data[0].estado == 'ok'){
+          if (res.data[0].estado == 'ok') {
             $('#exampleModal').modal('hide');
             this.getProductos();
           }
         });
       },
-      OpenModal(option){
+      OpenModal(option) {
 
-        if (option == 'nuevo'){
+        if (option == 'nuevo') {
           this.option = 'nuevo';
           this.producto.codigo = '';
           this.producto.producto = '';
@@ -273,11 +284,12 @@
           this.producto.tipo_igv = '';
           this.producto.stock = '';
           this.producto.unidad = '';
+          this.producto.categoria_id = '';
           $('#exampleModal').modal('show');
-        }else if (option == 'edit'){
+        } else if (option == 'edit') {
 
           // get Producto
-          axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=["01-04-2020","25-07-2020","12-09-2020","24-12-2020"]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}&stock={number|4000}').then(res => {
+          axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=[%2201-04-2020%22,%2225-07-2020%22,%2212-09-2020%22,%2224-12-2020%22]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}&stock={number|4000}&categoria_id={numberRange|1to10}').then(res => {
             //  Productos Vacio
             this.producto.codigo = res.data[0].codigo;
             this.producto.producto = res.data[0].producto;
@@ -287,6 +299,7 @@
             this.producto.tipo_igv = 'Operacion Onerosa';
             this.producto.stock = res.data[0].stock;
             this.producto.unidad = 'Kilogramos';
+            this.producto.categoria_id = res.data[0].categoria_id;
             $('#exampleModal').modal('show');
             this.option = option;
 
@@ -295,18 +308,18 @@
         }
 
       },
-      getProductos(){
+      getProductos() {
         // this.isLoadProductos = true;
         axios.get('http://www.filltext.com/?rows=20&pretty=true&codigo={string|8}&producto={lorem}&fecha=["01-04-2020","25-07-2020","12-09-2020","24-12-2020"]&precio={randomDecimalRange|500to2000}&igv={randomDecimalRange|30to200}&total={randomDecimalRange|800to300}').then(res => {
           this.productos = res.data;
           // this.isLoadProductos = false;
         })
       },
-      SendProducto(){
+      SendProducto() {
         // Activa loading
         // this.isLoading = true;
         axios.get('http://www.filltext.com/?rows=1&pretty=true&estado=ok').then(res => {
-          if (res.data[0].estado == 'ok'){
+          if (res.data[0].estado == 'ok') {
             $('#exampleModal').modal('hide');
             // Desactiva Loading
             // this.isLoading = false;
@@ -316,6 +329,7 @@
     },
     mounted() {
       this.getProductos();
+      this.GetCategorias();
     }
   }
 </script>
