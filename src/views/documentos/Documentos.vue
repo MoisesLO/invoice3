@@ -6,16 +6,16 @@
     <div class="d-flex row">
       <!-- Lado Izquierdo -->
       <div class="col-6 mr-auto">
-        <button class="btn btn-light">Factura</button>
-        <button class="btn btn-light ml-1">Boleta</button>
-        <button class="btn btn-light ml-1">Nota Credito</button>
-        <button class="btn btn-light ml-1">Nota Debito</button>
+        <router-link to="/factura" class="btn btn-secondary">Factura</router-link>
+        <router-link to="/boleta" class="btn btn-secondary">Boleta</router-link>
+        <router-link to="/credito" class="btn btn-secondary">Nota Credito</router-link>
+        <router-link to="/debito" class="btn btn-secondary">Nota Debito</router-link>
       </div>
       <!-- Lado Derecho -->
       <div class="col-6 d-flex">
         <div class="form-row ml-auto">
           <div class="col-4">
-            <button class="btn btn-light btn-block">Buscar</button>
+            <button class="btn btn-secondary btn-block">Buscar</button>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" placeholder="23456">

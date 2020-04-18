@@ -2,7 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
-import Documentos from '../views/Documentos'
+
+// Documentos
+import Documentos from '../views/documentos/Documentos'
+import Factura from "../views/documentos/Factura";
+import Boleta from "../views/documentos/Boleta";
+import Credito from "../views/documentos/Credito";
+import Debito from "../views/documentos/Debito";
+
+// Productos
 import Productos from '../views/productos/Productos'
 import Categorias from '../views/productos/Categorias'
 
@@ -23,6 +31,26 @@ const routes = [
     path: '/documentos',
     name: 'Documentos',
     component: Documentos
+  },
+  {
+    path: '/factura',
+    name: 'Factura',
+    component: Factura
+  },
+  {
+    path: '/boleta',
+    name: 'Boleta',
+    component: Boleta
+  },
+  {
+    path: '/credito',
+    name: 'Credito',
+    component: Credito
+  },
+  {
+    path: '/boleta',
+    name: 'Boleta',
+    component: Boleta
   },
   {
     path: '/productos',

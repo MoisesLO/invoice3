@@ -11,7 +11,9 @@
         <div class="form-row">
           <!-- Button Buscar -->
           <div class="col-4">
-            <button class="btn btn-primary form-control">Buscar</button>
+            <button class="btn btn-primary fo≤rm-control">
+              Buscar
+            </button>
           </div>
           <!-- Buscar -->
           <div class="col-8">
@@ -78,7 +80,7 @@
     <div class="d-flex justify-content-center row mt-3">
       <div class="col-12">
         <!--<table v-if="!isLoadProductos" class="table table-striped">-->
-        <table class="table table-striped">
+        <table class="table table-striped"≤>
           <tbody>
           <tr>
             <th>#</th>
@@ -251,7 +253,7 @@
       }
     },
     methods: {
-      GetCategorias(){
+      GetCategorias() {
         axios.get('http://www.filltext.com/?rows=10&pretty=true&id={index}&nombre={business}').then(res => {
           this.categorias = res.data;
         })
