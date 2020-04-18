@@ -46,6 +46,18 @@
                   <label for="tipo_operacion">Tipo Operacion</label>
                   <select class="form-control" id="tipo_operacion">
                     <option value="">Seleccione</option>
+                    <option value="01">Venta Interna</option>
+                    <option value="02">Exportacion</option>
+                    <option value="03">No Domicialados</option>
+                    <option value="03">Venta Interna - Anticipos</option>
+                    <option value="03">Venta Itinerante</option>
+                    <option value="03">Factura Guia</option>
+                    <option value="03">Venta Arroz Pilado</option>
+                    <option value="03">Factura - Comprobante de Percepcion</option>
+                    <option value="03">Factura - Guia Remitente</option>
+                    <option value="03">Factura - Guia Transportista</option>
+                    <option value="03">Boleta de Venta - Comprobante de Percepcion</option>
+                    <option value="03">Gasto Deducible Pesona Natural</option>
                   </select>
                 </div>
                 <!-- Moneda -->
