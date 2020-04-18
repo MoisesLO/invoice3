@@ -1,7 +1,7 @@
 describe('Documentos', () => {
 
   it('should Login', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
     cy.visit('/login')
     cy.get("input[type='email']").type('elnaufrago2009@gmail.com')
     cy.get("input[type='password']").type('moiseslinar3s')
@@ -9,12 +9,12 @@ describe('Documentos', () => {
   });
 
   it('should List documents', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
     cy.contains('a','Factura')
   });
 
   it('should Factura', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
     cy.contains('a','Factura').click()
     cy.get('#documento').type('10425162531')
     cy.get('#razon').type('Empresa Juanito S.A.C.')
@@ -23,14 +23,14 @@ describe('Documentos', () => {
   });
 
   it('should Boleta', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
   });
 
   it('should Credito', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
   });
 
   it('should Debito', function () {
-    cy.viewport(1200,550)
+    cy.viewport(1200,700)
   });
 })
