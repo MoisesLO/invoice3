@@ -1,0 +1,140 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nombre": "Computadoras DELL"
+    },
+    {
+      "id": 2,
+      "nombre": "Computadoras HP"
+    }
+  ],
+  "series": [
+    {
+      "id": 1,
+      "type": "FF",
+      "serie": "F001",
+      "nombre": "Factura Electronica",
+      "default": 1
+    },
+    {
+      "id": 2,
+      "type": "FF",
+      "serie": "F002",
+      "nombre": "Factura Electronica",
+      "default": 0
+    },
+    {
+      "id": 3,
+      "type": "FF",
+      "serie": "F003",
+      "nombre": "Factura Electronica",
+      "default": 0
+    },
+    {
+      "id": 4,
+      "type": "FC",
+      "serie": "FC01",
+      "nombre": "Factura Nota Credito",
+      "default": 1
+    },
+    {
+      "id": 5,
+      "type": "FC",
+      "serie": "FC02",
+      "nombre": "Factura Nota Credito",
+      "default": 0
+    },
+    {
+      "id": 6,
+      "type": "FC",
+      "serie": "FC03",
+      "nombre": "Factura Nota Credito",
+      "default": 0
+    },
+    {
+      "id": 7,
+      "type": "FD",
+      "serie": "FC01",
+      "nombre": "Factura Nota Debito",
+      "default": 1
+    },
+    {
+      "id": 8,
+      "type": "FD",
+      "serie": "FD02",
+      "nombre": "Factura Nota Debito",
+      "default": 0
+    },
+    {
+      "id": 9,
+      "type": "FD",
+      "serie": "FD02",
+      "nombre": "Factura Nota Debito",
+      "default": 0
+    },
+    {
+      "id": 10,
+      "type": "BB",
+      "serie": "B001",
+      "nombre": "Boleta Electronica",
+      "default": 1
+    },
+    {
+      "id": 11,
+      "type": "BB",
+      "serie": "B002",
+      "nombre": "Boleta Electronica",
+      "default": 0
+    },
+    {
+      "id": 12,
+      "type": "BB",
+      "serie": "B003",
+      "nombre": "Boleta Electronica",
+      "default": 0
+    },
+    {
+      "id": 13,
+      "type": "BC",
+      "serie": "BC01",
+      "nombre": "Boleta Nota Credito",
+      "default": 1
+    },
+    {
+      "id": 14,
+      "type": "BC",
+      "serie": "BC02",
+      "nombre": "Boleta Nota Credito",
+      "default": 0
+    },
+    {
+      "id": 15,
+      "type": "BC",
+      "serie": "BC03",
+      "nombre": "Boleta Nota Credito",
+      "default": 0
+    },
+    {
+      "id": 16,
+      "type": "BD",
+      "serie": "BD01",
+      "nombre": "Boleta Nota Debito",
+      "default": 1
+    },
+    {
+      "id": 17,
+      "type": "BD",
+      "serie": "BD02",
+      "nombre": "Boleta Nota Debito",
+      "default": 0
+    },
+    {
+      "id": 18,
+      "type": "BD",
+      "serie": "BD03",
+      "nombre": "Boleta Nota Debito",
+      "default": 0
+    }
+  ]
+}
