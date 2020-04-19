@@ -137,16 +137,97 @@
       "default": 0
     }
   ],
-  "tipo_operacion": [
+  "operaciones": [
     {
       "id": 1,
       "codigo": "01",
-      "descripcion": "Venta lnterna"
+      "descripcion": "Venta Interna",
+      "default": 1
     },
     {
       "id": 2,
       "codigo": "02",
-      "descripcion": "Exportación"
+      "descripcion": "Exportación",
+      "default": 0
+    },
+    {
+      "id": 3,
+      "codigo": "03",
+      "descripcion": "No Domiciliados",
+      "default": 0
+    },
+    {
+      "id": 4,
+      "codigo": "04",
+      "descripcion": "Venta Interna – Anticipos",
+      "default": 0
+    },
+    {
+      "id": 5,
+      "codigo": "05",
+      "descripcion": "Venta Itinerante",
+      "default": 0
+    },
+    {
+      "id": 6,
+      "codigo": "06",
+      "descripcion": "Factura Guía",
+      "default": 0
+    },
+    {
+      "id": 7,
+      "codigo": "07",
+      "descripcion": "Venta Arroz Pilado",
+      "default": 0
+    },
+    {
+      "id": 8,
+      "codigo": "08",
+      "descripcion": "Factura - Comprobante de Percepción",
+      "default": 0
+    },
+    {
+      "id": 9,
+      "codigo": "10",
+      "descripcion": "Factura - Guía remitente",
+      "default": 0
+    },
+    {
+      "id": 10,
+      "codigo": "11",
+      "descripcion": "Factura - Guía transportista",
+      "default": 0
+    },
+    {
+      "id": 11,
+      "codigo": "12",
+      "descripcion": "Boleta de venta – Comprobante de Percepción",
+      "default": 0
+    },
+    {
+      "id": 12,
+      "codigo": "13",
+      "descripcion": "Gasto Deducible Persona Natural",
+      "default": 0
     }
-  ]
+  ],
+  "monedas": [
+    {
+      "id": 1,
+      "codigo": "PEN",
+      "simbolo": "S/",
+      "descripcion": "Soles",
+      "default": 1
+    },
+    {
+      "id": 2,
+      "codigo": "USD",
+      "simbolo": "$",
+      "descripcion": "Dolares",
+      "default": 0
+    }
+  ],
+  "fecha_emision": {
+    "fecha": "2020-04-18"
+  }
 }

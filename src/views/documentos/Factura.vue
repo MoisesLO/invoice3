@@ -44,38 +44,28 @@
                 <!-- Tipo Operacion-->
                 <div class="col-3">
                   <label for="tipo_operacion">Tipo Operacion</label>
-                  <select class="form-control" id="tipo_operacion">
+                  <select v-model="documento.tipo_operacion" class="form-control" id="tipo_operacion">
                     <option value="">Seleccione</option>
-                    <option value="01">Venta Interna</option>
-                    <option value="02">Exportacion</option>
-                    <option value="03">No Domicialados</option>
-                    <option value="03">Venta Interna - Anticipos</option>
-                    <option value="03">Venta Itinerante</option>
-                    <option value="03">Factura Guia</option>
-                    <option value="03">Venta Arroz Pilado</option>
-                    <option value="03">Factura - Comprobante de Percepcion</option>
-                    <option value="03">Factura - Guia Remitente</option>
-                    <option value="03">Factura - Guia Transportista</option>
-                    <option value="03">Boleta de Venta - Comprobante de Percepcion</option>
-                    <option value="03">Gasto Deducible Pesona Natural</option>
+                    <option v-for="operacion in tipo_operaciones" :value="operacion.codigo">{{operacion.descripcion}}</option>
                   </select>
                 </div>
                 <!-- Moneda -->
                 <div class="col-2">
                   <label for="moneda">Moneda</label>
-                  <select id="moneda" class="form-control">
+                  <select v-model="documento.moneda" id="moneda" class="form-control">
                     <option value="">Seleccione</option>
+                    <option v-for="moneda in monedas.list" :value="moneda.codigo">{{moneda.descripcion}}</option>
                   </select>
                 </div>
                 <!-- Fecha -->
                 <div class="col-3">
                   <label for="fecha_emision">Fecha Emision</label>
-                  <input type="date" class="form-control" id="fecha_emision">
+                  <input type="date" v-model="documento.fecha_emision" class="form-control" id="fecha_emision">
                 </div>
                 <!-- Tipo Cambio -->
                 <div class="col-2">
                   <label for="tipo_cambio">Tipo Cambio</label>
-                  <input type="text" class="form-control" id="tipo_cambio">
+                  <input type="text" class="form-control" id="tipo_cambio" disabled>
                 </div>
                 <!-- Add Item -->
                 <div class="col-2">
@@ -161,13 +151,40 @@
   export default {
     data() {
       return {
+        documento:{
+          moneda: '',
+          tipo_operacion: '',
+          fecha_emision: ''
+        },
         categoria: {
           serie_id: ''
+        },
+        tipo_operaciones: [],
+        monedas: {
+          default: '',
+          list: []
         },
         categorias: []
       }
     },
     methods: {
+      GetFecha(){
+        axios.get('http://localhost:3000/fecha_emision').then(res => {
+          this.documento.fecha_emision = res.data.fecha;
+          console.log(res.data.fecha)
+        })
+      },
+      GetMonedas(){
+        axios.get('http://localhost:3000/monedas').then(res => {
+          this.monedas.list = res.data;
+          // console.log(res.data)
+          res.data.forEach(item => {
+            if (item.default == 1){
+              this.documento.moneda = item.codigo;
+            }
+          })
+        })
+      },
       GetSeries(){
         axios.get('http://localhost:3000/series?type=FF&_sort=default&_order=desc').then(res => {
           this.categorias = res.data;
@@ -176,12 +193,25 @@
               this.categoria.serie_id = item.id;
             }
           })
-          console.log(this.categoria)
+          // console.log(this.categoria)
+        })
+      },
+      GetOperaciones(){
+        axios.get('http://localhost:3000/operaciones').then(res => {
+          res.data.forEach(item => {
+            if (item.default == 1){
+              this.documento.tipo_operacion = item.codigo;
+            }
+          })
+          this.tipo_operaciones = res.data;
         })
       }
     },
     mounted() {
       this.GetSeries();
+      this.GetOperaciones();
+      this.GetMonedas();
+      this.GetFecha();
     }
   }
 </script>
