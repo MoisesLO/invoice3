@@ -44,38 +44,29 @@
                 <!-- Tipo Operacion-->
                 <div class="col-3">
                   <label for="tipo_operacion">Tipo Operacion</label>
-                  <select class="form-control" id="tipo_operacion">
+                  <select v-model="documento.tipo_operacion" class="form-control" id="tipo_operacion">
                     <option value="">Seleccione</option>
-                    <option value="01">Venta Interna</option>
-                    <option value="02">Exportacion</option>
-                    <option value="03">No Domicialados</option>
-                    <option value="03">Venta Interna - Anticipos</option>
-                    <option value="03">Venta Itinerante</option>
-                    <option value="03">Factura Guia</option>
-                    <option value="03">Venta Arroz Pilado</option>
-                    <option value="03">Factura - Comprobante de Percepcion</option>
-                    <option value="03">Factura - Guia Remitente</option>
-                    <option value="03">Factura - Guia Transportista</option>
-                    <option value="03">Boleta de Venta - Comprobante de Percepcion</option>
-                    <option value="03">Gasto Deducible Pesona Natural</option>
+                    <option v-for="operacion in tipo_operaciones" :value="operacion.codigo">{{operacion.descripcion}}
+                    </option>
                   </select>
                 </div>
                 <!-- Moneda -->
                 <div class="col-2">
                   <label for="moneda">Moneda</label>
-                  <select id="moneda" class="form-control">
+                  <select v-model="documento.moneda" id="moneda" class="form-control">
                     <option value="">Seleccione</option>
+                    <option v-for="moneda in monedas.list" :value="moneda.codigo">{{moneda.descripcion}}</option>
                   </select>
                 </div>
                 <!-- Fecha -->
                 <div class="col-3">
                   <label for="fecha_emision">Fecha Emision</label>
-                  <input type="date" class="form-control" id="fecha_emision">
+                  <input type="date" v-model="documento.fecha_emision" class="form-control" id="fecha_emision">
                 </div>
                 <!-- Tipo Cambio -->
                 <div class="col-2">
                   <label for="tipo_cambio">Tipo Cambio</label>
-                  <input type="text" class="form-control" id="tipo_cambio">
+                  <input type="text" class="form-control" id="tipo_cambio" disabled>
                 </div>
                 <!-- Add Item -->
                 <div class="col-2">
@@ -84,11 +75,12 @@
                 </div>
               </div><!-- End FormRow-->
 
-              <div class="form-row pt-3">
-                <div class="col">
-                  <h4>Productos</h4>
-                </div>
-              </div>
+              <hr class="mt-4">
+<!--              <div class="form-row pt-3">-->
+<!--                <div class="col">-->
+<!--                  <h4>Productos</h4>-->
+<!--                </div>-->
+<!--              </div>-->
 
               <!-- Form Row -->
               <div class="form-row">
@@ -113,10 +105,19 @@
               </div><!-- End Form Row -->
 
               <!-- Form Row -->
-              <div class="form-row">
+              <div v-for="item in documento.items" class="form-row pb-1">
                 <!-- Producto -->
                 <div class="col-3">
-                  <input type="text" class="form-control">
+                  <multiselect
+                      v-model="item.descripcion"
+                      :options="options"
+                      @search-change="GetProducto"
+                      @select="GetSeleccionado"
+                      label="nombre" track-by="nombre"
+                      limitText="20">
+                    <template slot="singleLabel" slot-scope="{ option }">{{ option.nombre }}</template>
+                  </multiselect>
+                  <!--<input type="text" class="form-control">-->
                 </div>
                 <!-- Add -->
                 <div class="col-1">
@@ -158,30 +159,114 @@
 </template>
 <script>
   import axios from 'axios'
+  import Multiselect from 'vue-multiselect'
+
   export default {
+    components: {
+      Multiselect
+    },
     data() {
       return {
+        documento: {
+          moneda: '',
+          tipo_operacion: '',
+          fecha_emision: '',
+          items: [
+            {
+              codigo: '',
+              producto_id: '',
+              descripcion: '',
+              unidad: '',
+              cantidad: '',
+              precio_sin_igv: '',
+              precio_con_igv: '',
+              total: ''
+            },
+            {
+              codigo: '',
+              producto_id: '',
+              descripcion: '',
+              unidad: '',
+              cantidad: '',
+              precio_sin_igv: '',
+              precio_con_igv: '',
+              total: ''
+            }
+          ]
+        },
         categoria: {
           serie_id: ''
         },
-        categorias: []
+        tipo_operaciones: [],
+        monedas: {
+          default: '',
+          list: []
+        },
+        categorias: [],
+        value: [],
+        options: [
+
+        ]
       }
     },
     methods: {
-      GetSeries(){
+      GetSeleccionado(producto){
+        console.log(producto)
+      },
+      GetProducto(producto){
+        axios.get('http://localhost:3000/productos?q='+producto).then(res => {
+          this.options = res.data;
+        })
+        console.log(producto)
+      },
+      GetFecha() {
+        axios.get('http://localhost:3000/fecha_emision').then(res => {
+          this.documento.fecha_emision = res.data.fecha;
+          console.log(res.data.fecha)
+        })
+      },
+      GetMonedas() {
+        axios.get('http://localhost:3000/monedas').then(res => {
+          this.monedas.list = res.data;
+          // console.log(res.data)
+          res.data.forEach(item => {
+            if (item.default == 1) {
+              this.documento.moneda = item.codigo;
+            }
+          })
+        })
+      },
+      GetSeries() {
         axios.get('http://localhost:3000/series?type=FF&_sort=default&_order=desc').then(res => {
           this.categorias = res.data;
           res.data.forEach(item => {
-            if (item.default == 1){
+            if (item.default == 1) {
               this.categoria.serie_id = item.id;
             }
           })
-          console.log(this.categoria)
+          // console.log(this.categoria)
+        })
+      },
+      GetOperaciones() {
+        axios.get('http://localhost:3000/operaciones').then(res => {
+          res.data.forEach(item => {
+            if (item.default == 1) {
+              this.documento.tipo_operacion = item.codigo;
+            }
+          })
+          this.tipo_operaciones = res.data;
         })
       }
     },
     mounted() {
       this.GetSeries();
+      this.GetOperaciones();
+      this.GetMonedas();
+      this.GetFecha();
     }
   }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style>
+  .multiselect__placeholder { color: $vue-multiselect-placeholder-color; display: inline-block; margin-bottom: 0px; padding-top: 0px; }
+</style>

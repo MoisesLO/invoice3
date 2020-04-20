@@ -1,8 +1,7 @@
 {
   "productos": [
     {
-      "id": 1,
-      "codigo": "AJAZS3",
+      "codigo": "",
       "nombre": "teclado mecanico ajjaz ak 33",
       "stock": "",
       "precio_sin_igv": 72.34,
@@ -11,23 +10,12 @@
       "tipo_igv": "10"
     },
     {
-      "id": 2,
-      "codigo": "MTSPEC",
+      "codigo": "",
       "nombre": "teclado mecanico motospeed k 97",
       "stock": "",
       "precio_sin_igv": 72.34,
       "igv": 18.43,
       "precio_con_igv": 90.23,
-      "tipo_igv": "10"
-    },
-    {
-      "id": 3,
-      "codigo": "METOG",
-      "nombre": "teclado mecanico metoo mz34",
-      "stock": "",
-      "precio_sin_igv": 72.34,
-      "igv": 18.43,
-      "precio_con_igv": 120.23,
       "tipo_igv": "10"
     }
   ],
