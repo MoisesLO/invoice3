@@ -104,20 +104,56 @@
                 </div>
               </div><!-- End Form Row -->
 
+              <div class="form-row mb-2">
+                <!-- Productos -->
+                <div style="width: 35%">
+                  <input type="text" class="form-control">
+                </div>
+
+                <!-- Avanzadas Item -->
+                <div style="width:5%" class="dropdown dropright pr-0 pl-2" >
+                  <button
+                      class="btn btn-secondary dropdown-toggle pl-1"
+                      style="width: 100%"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                  </button>
+                  <div class="dropdown-menu p-0 bg-light" style="max-width: 190px;">
+                    <form class="p-3">
+                      <h6 class="dropdown-header p-0 text-center">Item Avanzadas</h6>
+                      <div class="dropdown-divider mb-0"></div>
+                      <!-- Tipo IGV -->
+                      <small class="text-muted">Tipo de IGV</small>
+                      <select class="form-control form-control-sm">
+                        <option value="1">Gravada</option>
+                        <option value="2">Exonerada</option>
+                        <option value="2">Inafecto</option>
+                      </select>
+                      <!-- Descuento -->
+                      <small class="text-muted">Descuento</small>
+                      <input type="text"
+                             class="form-control form-control-sm"
+                             placeholder="0.00">
+                      <!-- IGV Linea -->
+                      <small class="text-muted">IGV Linea</small>
+                      <input type="text" disabled
+                             class="form-control form-control-sm"
+                             placeholder="0.00">
+                      <!-- Eliminar -->
+                      <button type="button" class="btn btn-light btn-sm mt-1 btn-block dropdown-toggle"><i class="fa fa-trash"></i> Eliminar Fila</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+
               <!-- Form Row -->
               <div v-for="item in documento.items" class="form-row pb-1">
                 <!-- Producto -->
                 <div class="col-3">
-                  <multiselect
-                      v-model="item.descripcion"
-                      :options="options"
-                      @search-change="GetProducto"
-                      @select="GetSeleccionado"
-                      label="nombre" track-by="nombre"
-                      limitText="20">
-                    <template slot="singleLabel" slot-scope="{ option }">{{ option.nombre }}</template>
-                  </multiselect>
-                  <!--<input type="text" class="form-control">-->
+                  <input type="text" class="form-control">
                 </div>
                 <!-- Add -->
                 <div class="col-1">
@@ -203,10 +239,6 @@
           list: []
         },
         categorias: [],
-        value: [],
-        options: [
-
-        ]
       }
     },
     methods: {
