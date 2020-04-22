@@ -82,6 +82,10 @@
 <!--                </div>-->
 <!--              </div>-->
 
+              <div class="d-flex flex-row bd-highlight">
+                Hola
+              </div>
+
               <!-- Form Row -->
               <div class="form-row">
                 <div class="col-3">
@@ -104,9 +108,9 @@
                 </div>
               </div><!-- End Form Row -->
 
-              <div class="form-row mb-2">
+              <div class="d-flex flex-row bd-highlight mb-2">
                 <!-- Productos -->
-                <div style="width: 36%">
+                <div style="width: 37%">
                   <input type="text" class="form-control">
                 </div>
 
