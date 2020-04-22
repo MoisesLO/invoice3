@@ -106,11 +106,12 @@
 
               <div class="form-row mb-2">
                 <!-- Productos -->
-                <div style="width: 35%">
+                <div style="width: 36%">
                   <input type="text" class="form-control">
                 </div>
 
                 <!-- Avanzadas Item -->
+                <!--https://github.com/MoisesLO/factura/blob/master/view/documentos/modal_facturas.php-->
                 <div style="width:5%" class="dropdown dropright pr-0 pl-2" >
                   <button
                       class="btn btn-secondary dropdown-toggle pl-1"
@@ -144,6 +145,31 @@
                       <!-- Eliminar -->
                       <button type="button" class="btn btn-light btn-sm mt-1 btn-block dropdown-toggle"><i class="fa fa-trash"></i> Eliminar Fila</button>
                     </form>
+                  </div>
+                </div>
+
+                <!-- Cantidad -->
+                <div style="width: 12.5%; box-sizing: border-box;">
+                  <div class="pr-2 pl-2 bg-light">
+                    <input type="text" class="form-control text-right" placeholder="0">
+                  </div>
+                </div>
+                <!-- Precio -->
+                <div style="width: 15%; box-sizing: content-box;">
+                  <div class="pr-2">
+                    <input type="text" class="form-control text-right" placeholder="0.00">
+                  </div>
+                </div>
+                <!-- Subtotal -->
+                <div class="" style="width: 15%; box-sizing: content-box;">
+                  <div class="pr-2">
+                    <input type="text" class="form-control text-right" placeholder="0.00" disabled>
+                  </div>
+                </div>
+                <!-- Total -->
+                <div style="width: 15%; box-sizing: border-box;">
+                  <div class="bg-light">
+                    <input type="text" class="form-control text-right" placeholder="0.00" disabled>
                   </div>
                 </div>
 
