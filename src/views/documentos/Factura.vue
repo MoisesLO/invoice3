@@ -153,7 +153,7 @@
                 </div>
 
                 <!-- Cantidad -->
-                <div style="width: 12.5%; box-sizing: border-box;">
+                <div style="width: 13%; box-sizing: border-box;">
                   <div class="pr-2 pl-2 bg-light">
                     <input type="text" class="form-control text-right" placeholder="0">
                   </div>
