@@ -6,87 +6,127 @@
         <!-- Card -->
         <div class="card bg-light">
           <div class="card-body">
-            <form>
+            
+            <t-dropdown text="Im a happy button">
+              <ul>
+                <li>
+                  <a
+                    href="#"
+                    class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
+                  >My orders</a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
+                  >Account settings</a>
+                </li>
+                <li class="border-b"></li>
+                <li>
+                  <a
+                    href="#"
+                    class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
+                  >Sign out</a>
+                </li>
+              </ul>
+            </t-dropdown>
 
+            <form>
               <!-- FormRow-->
               <div class="form-row">
                 <!-- Documento -->
                 <div class="col-2 form-group">
                   <label for="documento">Documento</label>
-                  <input type="text" class="form-control" id="documento">
+                  <input type="text" class="form-control" id="documento" />
                   <small class="form-text text-muted">Ejm. 42516253</small>
                 </div>
                 <!-- Razon Social-->
                 <div class="col-4 form-group">
                   <label for="razon">Razon Social</label>
-                  <input type="text" class="form-control" id="razon">
+                  <input type="text" class="form-control" id="razon" />
                   <small class="form-text text-muted">Ejm. Exportaciones Juanito S.A.C.</small>
                 </div>
                 <!-- Direccion -->
                 <div class="col-4 form-group">
                   <label for="direccion">Direccion</label>
-                  <input type="text" class="form-control" id="direccion">
+                  <input type="text" class="form-control" id="direccion" />
                   <small class="form-text text-muted">Ejm. Avenida Juan More 1567</small>
                 </div>
                 <!-- Serie -->
                 <div class="col-2 form-group">
                   <label for="serie">Serie</label>
                   <select v-model="categoria.serie_id" class="form-control" id="serie">
-                    <option value="">Seleccione</option>
-                    <option :value="categoria.id" v-for="categoria in categorias">{{categoria.serie}}</option>
+                    <option value>Seleccione</option>
+                    <option
+                      :value="categoria.id"
+                      v-for="categoria in categorias"
+                    >{{categoria.serie}}</option>
                   </select>
                   <small class="form-text text-muted">Ejm. F001</small>
                 </div>
-              </div> <!-- End FormRow -->
+              </div>
+              <!-- End FormRow -->
 
               <!-- FormRow -->
               <div class="form-row">
                 <!-- Tipo Operacion-->
                 <div class="col-3">
                   <label for="tipo_operacion">Tipo Operacion</label>
-                  <select v-model="documento.tipo_operacion" class="form-control" id="tipo_operacion">
-                    <option value="">Seleccione</option>
-                    <option v-for="operacion in tipo_operaciones" :value="operacion.codigo">{{operacion.descripcion}}
-                    </option>
+                  <select
+                    v-model="documento.tipo_operacion"
+                    class="form-control"
+                    id="tipo_operacion"
+                  >
+                    <option value>Seleccione</option>
+                    <option
+                      v-for="operacion in tipo_operaciones"
+                      :value="operacion.codigo"
+                    >{{operacion.descripcion}}</option>
                   </select>
                 </div>
                 <!-- Moneda -->
                 <div class="col-2">
                   <label for="moneda">Moneda</label>
                   <select v-model="documento.moneda" id="moneda" class="form-control">
-                    <option value="">Seleccione</option>
-                    <option v-for="moneda in monedas.list" :value="moneda.codigo">{{moneda.descripcion}}</option>
+                    <option value>Seleccione</option>
+                    <option
+                      v-for="moneda in monedas.list"
+                      :value="moneda.codigo"
+                    >{{moneda.descripcion}}</option>
                   </select>
                 </div>
                 <!-- Fecha -->
                 <div class="col-3">
                   <label for="fecha_emision">Fecha Emision</label>
-                  <input type="date" v-model="documento.fecha_emision" class="form-control" id="fecha_emision">
+                  <input
+                    type="date"
+                    v-model="documento.fecha_emision"
+                    class="form-control"
+                    id="fecha_emision"
+                  />
                 </div>
                 <!-- Tipo Cambio -->
                 <div class="col-2">
                   <label for="tipo_cambio">Tipo Cambio</label>
-                  <input type="text" class="form-control" id="tipo_cambio" disabled>
+                  <input type="text" class="form-control" id="tipo_cambio" disabled />
                 </div>
                 <!-- Add Item -->
                 <div class="col-2">
                   <label for="add_item">Agregar</label>
-                  <button class="btn btn-secondary form-control" id="add_item">+ Add Item</button>
+                  <a
+                    href="#"
+                    @click="OpenAddProducto"
+                    class="btn btn-secondary form-control"
+                    id="add_item"
+                  >+ Add Item</a>
                 </div>
-              </div><!-- End FormRow-->
-
-              <hr class="mt-4">
-<!--              <div class="form-row pt-3">-->
-<!--                <div class="col">-->
-<!--                  <h4>Productos</h4>-->
-<!--                </div>-->
-<!--              </div>-->
-
-              <div class="d-flex flex-row bd-highlight">
-                Hola
               </div>
+              <!-- End FormRow-->
 
-              <!-- Form Row -->
+              <!-- Raya -->
+              <hr class="mt-4" />
+
+              <!-- Titulos Items Producto Form Row -->
               <div class="form-row">
                 <div class="col-3">
                   <label>Productos</label>
@@ -106,18 +146,106 @@
                 <div class="col-2 text-right">
                   <label>Total</label>
                 </div>
-              </div><!-- End Form Row -->
+              </div>
+              <!-- End Form Row -->
 
+              <!-- Items Productos Form Row -->
               <div class="d-flex flex-row bd-highlight mb-2">
                 <!-- Productos -->
-                <div style="width: 37%">
-                  <input type="text" class="form-control">
+                <div style="width: 42%">
+                  <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                    <button
+                      @click="open = !open"
+                      class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    >
+                      <span>Dropdown</span>
+                      <svg
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        :class="{'rotate-180': open, 'rotate-0': !open}"
+                        class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <div
+                      x-show="open"
+                      x-transition:enter="transition ease-out duration-100"
+                      x-transition:enter-start="transform opacity-0 scale-95"
+                      x-transition:enter-end="transform opacity-100 scale-100"
+                      x-transition:leave="transition ease-in duration-75"
+                      x-transition:leave-start="transform opacity-100 scale-100"
+                      x-transition:leave-end="transform opacity-0 scale-95"
+                      class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48"
+                    >
+                      <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+                        <a
+                          class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="#"
+                        >Link #1</a>
+                        <a
+                          class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="#"
+                        >Link #2</a>
+                        <a
+                          class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                          href="#"
+                        >Link #3</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="input-group dropdown">
+                    <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                    <div class="absolute normal-case bg-white border right-0 w-108 text-left rounded-lg shadow overflow-hidden z-10">
+                      <div class="flex flex-col">
+                        Titulo
+                      </div>
+                    </div>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary">Editar</button>
+                      <button
+                              data-toggle="dropdown"
+                              class="btn btn-secondary dropdown-toggle"
+                              aria-haspopup="true" aria-expanded="false">
+                              <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu">
+                        <form class="p-3 bg-light">
+&lt;!&ndash;                          <h6 class="dropdown-header p-0 text-center">Item Avanzadas</h6>&ndash;&gt;
+&lt;!&ndash;                          <div class="dropdown-divider mb-0"></div>&ndash;&gt;
+                          &lt;!&ndash; Tipo IGV &ndash;&gt;
+                          <small class="text-muted">Tipo de IGV</small>
+                          <select class="form-control form-control-sm">
+                            <option value="1">Gravada</option>
+                            <option value="2">Exonerada</option>
+                            <option value="2">Inafecto</option>
+                          </select>
+                          &lt;!&ndash; Descuento &ndash;&gt;
+                          <small class="text-muted">Descuento</small>
+                          <input type="text"
+                                 class="form-control form-control-sm"
+                                 placeholder="0.00">
+                          &lt;!&ndash; IGV Linea &ndash;&gt;
+                          <small class="text-muted">IGV Linea</small>
+                          <input type="text" disabled
+                                 class="form-control form-control-sm"
+                                 placeholder="0.00">
+                          &lt;!&ndash; Eliminar &ndash;&gt;
+                          <button type="button" class="btn btn-light btn-sm mt-1 btn-block dropdown-toggle"><i class="fa fa-trash"></i> Eliminar Fila</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>-->
                 </div>
 
                 <!-- Avanzadas Item -->
                 <!--https://github.com/MoisesLO/factura/blob/master/view/documentos/modal_facturas.php-->
-                <div style="width:5%" class="dropdown dropright pr-0 pl-2" >
-                  <button
+                <div style="width:5%" class="dropdown dropright pr-0 pl-2">
+                  <!--                  <button
                       class="btn btn-secondary dropdown-toggle pl-1"
                       style="width: 100%"
                       data-toggle="dropdown"
@@ -129,61 +257,60 @@
                     <form class="p-3">
                       <h6 class="dropdown-header p-0 text-center">Item Avanzadas</h6>
                       <div class="dropdown-divider mb-0"></div>
-                      <!-- Tipo IGV -->
+                      &lt;!&ndash; Tipo IGV &ndash;&gt;
                       <small class="text-muted">Tipo de IGV</small>
                       <select class="form-control form-control-sm">
                         <option value="1">Gravada</option>
                         <option value="2">Exonerada</option>
                         <option value="2">Inafecto</option>
                       </select>
-                      <!-- Descuento -->
+                      &lt;!&ndash; Descuento &ndash;&gt;
                       <small class="text-muted">Descuento</small>
                       <input type="text"
                              class="form-control form-control-sm"
                              placeholder="0.00">
-                      <!-- IGV Linea -->
+                      &lt;!&ndash; IGV Linea &ndash;&gt;
                       <small class="text-muted">IGV Linea</small>
                       <input type="text" disabled
                              class="form-control form-control-sm"
                              placeholder="0.00">
-                      <!-- Eliminar -->
+                      &lt;!&ndash; Eliminar &ndash;&gt;
                       <button type="button" class="btn btn-light btn-sm mt-1 btn-block dropdown-toggle"><i class="fa fa-trash"></i> Eliminar Fila</button>
                     </form>
-                  </div>
+                  </div>-->
                 </div>
 
                 <!-- Cantidad -->
                 <div style="width: 13%; box-sizing: border-box;">
                   <div class="pr-2 pl-2 bg-light">
-                    <input type="text" class="form-control text-right" placeholder="0">
+                    <input type="text" class="form-control text-right" placeholder="0" />
                   </div>
                 </div>
                 <!-- Precio -->
                 <div style="width: 15%; box-sizing: content-box;">
                   <div class="pr-2">
-                    <input type="text" class="form-control text-right" placeholder="0.00">
+                    <input type="text" class="form-control text-right" placeholder="0.00" />
                   </div>
                 </div>
                 <!-- Subtotal -->
-                <div class="" style="width: 15%; box-sizing: content-box;">
+                <div class style="width: 15%; box-sizing: content-box;">
                   <div class="pr-2">
-                    <input type="text" class="form-control text-right" placeholder="0.00" disabled>
+                    <input type="text" class="form-control text-right" placeholder="0.00" disabled />
                   </div>
                 </div>
                 <!-- Total -->
                 <div style="width: 15%; box-sizing: border-box;">
                   <div class="bg-light">
-                    <input type="text" class="form-control text-right" placeholder="0.00" disabled>
+                    <input type="text" class="form-control text-right" placeholder="0.00" disabled />
                   </div>
                 </div>
-
               </div>
 
               <!-- Form Row -->
               <div v-for="item in documento.items" class="form-row pb-1">
                 <!-- Producto -->
                 <div class="col-3">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" />
                 </div>
                 <!-- Add -->
                 <div class="col-1">
@@ -191,144 +318,193 @@
                 </div>
                 <!-- Cantidad -->
                 <div class="col-1">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" />
                 </div>
                 <!-- Unidad -->
                 <div class="col-1">
                   <select class="form-control">
-                    <option value="">Kilogramos</option>
-                    <option value="">Litros</option>
-                    <option value="">Miligramos</option>
-                    <option value="">Gramos</option>
+                    <option value>Kilogramos</option>
+                    <option value>Litros</option>
+                    <option value>Miligramos</option>
+                    <option value>Gramos</option>
                   </select>
                 </div>
                 <!-- Precio -->
                 <div class="col-2">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" />
                 </div>
                 <!-- IGV -->
                 <div class="col-2">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" />
                 </div>
                 <!-- Total -->
                 <div class="col-2">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" />
                 </div>
-              </div><!-- Form Row -->
-
+              </div>
+              <!-- Form Row -->
             </form>
+
+            <!-- Modal Item -->
+            <div
+              class="modal fade"
+              id="AddProducto"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-row justify-content-center">
+                      <div class="col-8">
+                        <input
+                          type="text"
+                          class="form-control form-control-lg align-content-center"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Item -->
           </div>
-        </div><!-- End Card -->
+        </div>
+        <!-- End Card -->
       </div>
     </div>
   </div>
 </template>
 <script>
-  import axios from 'axios'
-  import Multiselect from 'vue-multiselect'
+import axios from "axios";
+import Multiselect from "vue-multiselect";
+import $ from "jquery";
 
-  export default {
-    components: {
-      Multiselect
+export default {
+  components: {
+    Multiselect
+  },
+  data() {
+    return {
+      documento: {
+        moneda: "",
+        tipo_operacion: "",
+        fecha_emision: "",
+        items: [
+          {
+            codigo: "",
+            producto_id: "",
+            descripcion: "",
+            unidad: "",
+            cantidad: "",
+            precio_sin_igv: "",
+            precio_con_igv: "",
+            total: ""
+          },
+          {
+            codigo: "",
+            producto_id: "",
+            descripcion: "",
+            unidad: "",
+            cantidad: "",
+            precio_sin_igv: "",
+            precio_con_igv: "",
+            total: ""
+          }
+        ]
+      },
+      categoria: {
+        serie_id: ""
+      },
+      tipo_operaciones: [],
+      monedas: {
+        default: "",
+        list: []
+      },
+      categorias: []
+    };
+  },
+  methods: {
+    OpenAddProducto() {
+      $("#AddProducto").modal("show");
+      console.log("salio modal");
     },
-    data() {
-      return {
-        documento: {
-          moneda: '',
-          tipo_operacion: '',
-          fecha_emision: '',
-          items: [
-            {
-              codigo: '',
-              producto_id: '',
-              descripcion: '',
-              unidad: '',
-              cantidad: '',
-              precio_sin_igv: '',
-              precio_con_igv: '',
-              total: ''
-            },
-            {
-              codigo: '',
-              producto_id: '',
-              descripcion: '',
-              unidad: '',
-              cantidad: '',
-              precio_sin_igv: '',
-              precio_con_igv: '',
-              total: ''
-            }
-          ]
-        },
-        categoria: {
-          serie_id: ''
-        },
-        tipo_operaciones: [],
-        monedas: {
-          default: '',
-          list: []
-        },
-        categorias: [],
-      }
+    GetSeleccionado(producto) {
+      console.log(producto);
     },
-    methods: {
-      GetSeleccionado(producto){
-        console.log(producto)
-      },
-      GetProducto(producto){
-        axios.get('http://localhost:3000/productos?q='+producto).then(res => {
-          this.options = res.data;
-        })
-        console.log(producto)
-      },
-      GetFecha() {
-        axios.get('http://localhost:3000/fecha_emision').then(res => {
-          this.documento.fecha_emision = res.data.fecha;
-          console.log(res.data.fecha)
-        })
-      },
-      GetMonedas() {
-        axios.get('http://localhost:3000/monedas').then(res => {
-          this.monedas.list = res.data;
-          // console.log(res.data)
-          res.data.forEach(item => {
-            if (item.default == 1) {
-              this.documento.moneda = item.codigo;
-            }
-          })
-        })
-      },
-      GetSeries() {
-        axios.get('http://localhost:3000/series?type=FF&_sort=default&_order=desc').then(res => {
+    GetProducto(producto) {
+      axios.get("http://localhost:3000/productos?q=" + producto).then(res => {
+        this.options = res.data;
+      });
+      console.log(producto);
+    },
+    GetFecha() {
+      axios.get("http://localhost:3000/fecha_emision").then(res => {
+        this.documento.fecha_emision = res.data.fecha;
+        console.log(res.data.fecha);
+      });
+    },
+    GetMonedas() {
+      axios.get("http://localhost:3000/monedas").then(res => {
+        this.monedas.list = res.data;
+        // console.log(res.data)
+        res.data.forEach(item => {
+          if (item.default == 1) {
+            this.documento.moneda = item.codigo;
+          }
+        });
+      });
+    },
+    GetSeries() {
+      axios
+        .get("http://localhost:3000/series?type=FF&_sort=default&_order=desc")
+        .then(res => {
           this.categorias = res.data;
           res.data.forEach(item => {
             if (item.default == 1) {
               this.categoria.serie_id = item.id;
             }
-          })
+          });
           // console.log(this.categoria)
-        })
-      },
-      GetOperaciones() {
-        axios.get('http://localhost:3000/operaciones').then(res => {
-          res.data.forEach(item => {
-            if (item.default == 1) {
-              this.documento.tipo_operacion = item.codigo;
-            }
-          })
-          this.tipo_operaciones = res.data;
-        })
-      }
+        });
     },
-    mounted() {
-      this.GetSeries();
-      this.GetOperaciones();
-      this.GetMonedas();
-      this.GetFecha();
+    GetOperaciones() {
+      axios.get("http://localhost:3000/operaciones").then(res => {
+        res.data.forEach(item => {
+          if (item.default == 1) {
+            this.documento.tipo_operacion = item.codigo;
+          }
+        });
+        this.tipo_operaciones = res.data;
+      });
     }
+  },
+  mounted() {
+    this.GetSeries();
+    this.GetOperaciones();
+    this.GetMonedas();
+    this.GetFecha();
   }
+};
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-  .multiselect__placeholder { color: $vue-multiselect-placeholder-color; display: inline-block; margin-bottom: 0px; padding-top: 0px; }
+.multiselect__placeholder {
+  color: $vue-multiselect-placeholder-color;
+  display: inline-block;
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
 </style>
