@@ -31,3 +31,7 @@
     }
   }
 </script>
+
+<style lang="scss">
+  @import "css/tailwind.css";
+</style>
